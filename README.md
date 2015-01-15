@@ -1,8 +1,8 @@
 # Lecture Notes for Data Engineering w/ Ken Anderson
 
-[GitHub Repo](https://github.com/cu-data-engineering-s15)
+###[GitHub Repo](https://github.com/cu-data-engineering-s15)
 
-## Lecture 1 - 1/13/15
+# Lecture 1 - 1/13/15
 
 Anderson is asking us to make this as a first assignment. I'm excited for the class.
 
@@ -63,6 +63,43 @@ http request methods
 
 Some request comes out, associated with url
 server recieves url maps request to file and returns back a response
+
+
+
+
+
+# Lecture 2 - 1/15/15
+
+#### Markup
+Type of Markup Language
+
+Two Types:
+ * Standard Markdown (SM)
+ * GitHub Flavored Markdown (GFM)
+
+##### What Can I Do With Markdown
+ * Style, word formatting
+ * Images, Links
+ * Code Blocks
+
+#### Review
+Web Browser --> Web Server, Map Server --> handler (usually separate entity)
+
+#### REST - Representation State Transfer
+* Resources 
+  - URI (URL is a subclass of URI)
+  - CRUD
+    - Create
+    - Read
+    - Update
+    - Destroy
+
+#### HOMEWORK
+DATABASE?
+
+ids? input and output and ERRORS??
+
+
 
 
 
