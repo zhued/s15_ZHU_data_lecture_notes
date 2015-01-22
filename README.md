@@ -215,6 +215,43 @@ def handle_request(method, uri, data = nil)
 
 
 
+# Lecture 4 - 1/22/15
+
+#### Git Presentation
+* Stages of file: Untracked, Unmodified, Modified, Staged, Remote
+* git
+  * init - initialize
+  * clone - clone a repo
+  * branch - new branch
+  * checkout - move into another branch
+  * add - add files
+  * commit - commits stuff
+  * merge - merge a branch with another branch
+* Resolve Conflicts
+  * find conflicts
+  * <<<<< start
+  * ===== differnces
+  * >>>>> end of conflicts
+
+#### GitHub Presentation
+* Pull requests are new for GitHub
+* Forking creates repo under your own head
+* Cloning create repo with collaborators of that repo community
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
