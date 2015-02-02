@@ -324,7 +324,7 @@ console.log("Server running at http://127.0.0.1:8000/");
 
 
 
-*Lecture 6 - 1/29/15
+# Lecture 6 - 1/29/15
 
 ### Express
 * Web application framework written in javascript for use in Node.js
