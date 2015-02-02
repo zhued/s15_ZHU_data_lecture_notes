@@ -68,6 +68,19 @@ server recieves url maps request to file and returns back a response
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Lecture 2 - 1/15/15
 
 #### Markup
@@ -98,6 +111,21 @@ Web Browser --> Web Server, Map Server --> handler (usually separate entity)
 DATABASE?
 
 ids? input and output and ERRORS??
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -215,7 +243,7 @@ def handle_request(method, uri, data = nil)
 
 
 
-# Lecture 4 - 1/22/15
+# Lecture 5 - 1/22/15
 
 #### Git Presentation
 * Stages of file: Untracked, Unmodified, Modified, Staged, Remote
@@ -252,6 +280,57 @@ def handle_request(method, uri, data = nil)
 
 
 
+
+
+
+
+# Lecture 5 - 1/27/15
+
+####NODE.JS
+* Most code in node is pacckaged inside of a module
+* http is a core module, provided by Node itself
+* npm (node package manager) - gives access to extend node
+
+```javascript
+// Load the http module to create an http server.
+var http = require('http');
+
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello World\n");
+});
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8000);
+
+// Put a friendly message on the terminal
+console.log("Server running at http://127.0.0.1:8000/");
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*Lecture 6 - 1/29/15
+
+### Express
+* Web application framework written in javascript for use in Node.js
+
+#### Express example 
+* In class demo...
 
 
 
