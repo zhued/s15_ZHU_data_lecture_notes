@@ -2,7 +2,7 @@
 
 ###[GitHub Repo](https://github.com/cu-data-engineering-s15)
 
-# Lecture 1 - 1/13/15
+# [Lecture 1 - 1/13/15](http://cu-data-engineering-s15.github.io/lecture_01/)
 
 Anderson is asking us to make this as a first assignment. I'm excited for the class.
 
@@ -131,7 +131,7 @@ ids? input and output and ERRORS??
 
 
 
-# Lecture 3 - 1/20/15
+# [Lecture 3 - 1/20/15](http://cu-data-engineering-s15.github.io/lecture_03/)
 
 ##Restful Web Services
 * Architectural style for web services
@@ -243,7 +243,14 @@ def handle_request(method, uri, data = nil)
 
 
 
-# Lecture 5 - 1/22/15
+
+
+
+
+
+
+
+# Lecture 4 - 1/22/15
 
 #### Git Presentation
 * Stages of file: Untracked, Unmodified, Modified, Staged, Remote
@@ -284,7 +291,11 @@ def handle_request(method, uri, data = nil)
 
 
 
-# Lecture 5 - 1/27/15
+
+
+
+
+# [Lecture 5 - 1/27/15](http://cu-data-engineering-s15.github.io/lecture_05/)
 
 ####NODE.JS
 * Most code in node is pacckaged inside of a module
@@ -324,7 +335,18 @@ console.log("Server running at http://127.0.0.1:8000/");
 
 
 
-# Lecture 6 - 1/29/15
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 6 - 1/29/15](http://cu-data-engineering-s15.github.io/lecture_06)
 
 ### Express
 * Web application framework written in javascript for use in Node.js
@@ -334,5 +356,192 @@ console.log("Server running at http://127.0.0.1:8000/");
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 7 - 2/3/15](http://cu-data-engineering-s15.github.io/lecture_07/)
+
+### AngularJS
+
+Client-side web application framework written in Javascript for use in most web browsers
+
+### Core Concepts
+* Data Binding
+  * The value of an HTML tag can be associated with a model object. When one changes, Angular updates the other automatically.
+* Controllers
+  * State and methods that can be accessed within that section of the page
+  * Can modularize your web app and decompose data and functionality into small, manageable chunks
+
+* Services
+* Directives
+* Embeddeble
+* Injectable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 8 - 2/5/15]()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 9 - 2/10/15](http://cu-data-engineering-s15.github.io/lecture_09/)
+
+
+### this Keyword
+* the value of this is determined on how you call it.
+* implicit binding, explicit binding, etc.
+
+### requireJS
+* kicks off loading of app specific code
+* requireJS then starts to look at dependencies and starts to execute them in order
+* requireJS can configure things like:
+  * bootstrap
+  * angular
+  * ngRoute
+  * jQuery
+* requireJS also lets you load js that you wrote such as:
+  * routes.js
+  * /controllers
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 10 - 2/12/15](http://cu-data-engineering-s15.github.io/lecture_10/)
+
+## Twitter - Consumer Keys, Access Tokens
+* OAuth allows app to act on behalf of users 
+  * i.e. post tweets etc
+* Might ship your application with consumer keys.
+* When user launches app, send them to twitter to login and grant access
+* Twitter will then send an access token/secret for application to store on behalf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+# [Lecture 11 - 2/17/15](http://cu-data-engineering-s15.github.io/lecture_11/)
+
+
+## TwitterRequest 
+* is the top level class of a tweet
+* contains helpers:
+  * logging
+  * rates
+  * params
+  * props
+
+#### Contract
+* TwitterRequest has a public collect method that yields data back to its caller.
+* Subclasses of twitterequest need:
+  * url 
+  * request_name
+  * twitter_endpoint -> rate limits
+  * success -> handler for successful response for twitter
+* Subclasses may implement:
+  * error
+  * authorization
+
+#### Rates
+* ensures that rates are checked on each request
+```ruby
+def make_request
+  check_rates
+  request = Typhoeus::Request.new(url, options)
+  log.info("REQUESTING: #{request.base_url}?#{display_params}")
+  response = request.run
+  @rate_count = @rate_count - 1
+  response
+end
+
+def check_rates
+  refresh_rates if @@rates.size == 0
+  refresh_rates if Time.now > twitter_window
+  return if @rate_count > 0
+  delta = twitter_window - Time.now
+  log.info "Sleeping for #{delta} seconds"
+  sleep delta
+  refresh_rates
+end
+```
 
 
