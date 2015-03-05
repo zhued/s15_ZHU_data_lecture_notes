@@ -545,3 +545,264 @@ end
 ```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 12 - 2/17/15](http://cu-data-engineering-s15.github.io/lecture_12/)
+
+## Web Analytics Application - Scaling Problems
+* Problem: Can't keep up with write demand, which affects read requests
+* Not a perfect solution: Batch updates to database after getting some amount requests. 
+  * Add a queue between web server and a database. Attach a signle worker to queue and that will start working on the queue.
+  * Problem -> even if you have 20 different workers you still have a bottleneck, the database. It cannot handle the load that the workers want to do.
+* Not a perfect solution: Vertically scaling -> will fail at some point and takes a lot of money.
+  * Doesn't solve underlying problem i.e. one machine that is the bottle neck
+* In relational world -> to solve, shard the databse.
+  1. need multiple copies of the database 
+  2. then partition your data across those databases with a partition strategy
+    * Often take an Md5 hash of some aspect of the input data and then mod that value by the number of shards
+    * Then write data to indicated shard
+    * Do the same thing for reads to locate the data needed to fill request
+  3. NOTE: need a good hash function that distributes the reads and writes evenly
+* Problems:
+  * Sharding is application level -> you have to manage number of shards
+  * If shards changes, have to remap entire db and turn your app off.
+  * if you make a mistake when resharding, takes time to fix.
+
+## NoSQL to the rescue
+* NoSQL db avoid mutable data
+  * Can't lose correct data because once written, it is immutable and cant be updated
+  * if a val changes write a new immutable copy
+* Fault tolerance
+  * if disk error occurs, NoSQL db switches to its replica automatically
+  * reshards db automatically
+  * when old machine comes back and it reshards again.
+  * can expect performance to go down while rebalancing occurs
+
+## Types of NoSQL DBs
+* Key Value
+* Graphs
+* Columnar
+* Documents
+
+#### Key Value
+* Key value is a simple database that when presented with a string (key) returns an arbitrarily large set of data (value)
+* Have no query language. Just act like hash tables.
+* Vals are untyped, you can store any type of data in these databases
+* Benefits -> simplicity
+
+#### Graph Stores
+* store graph structures rather than table/row/column
+* probide structural query languages
+  * examples: find all pairs of person nodes who have at least 3 children together, live in CO, married more than 15 years
+* provide ability to do graph traversals efficiently
+* Examples -> Neo4J, Titan, Infinite Graph, Info Grid
+
+#### Columnar Store
+* Column family stores
+* able to scale to enormous amounts of data
+* often able to achieve very fast writes, while also maintaining reasonable read performance
+  * Column Family: table of related data
+  * Colum families consist of rows that have unique row keys
+  * Rows consist of columns (potentially millions of them)
+  * Columns consist of a key and a value
+  * Value itself might be a JSON map that in turn has keys and values
+* Hash tables all the way down
+* tries its best to keep a whole row on disc so that its a single stream -> only thing holding it down network latency and disc latency
+
+#### Document stores
+* Like key-value but a little more structure
+* insert documents ( a bag of key-value pairs )
+* each document gets indexed in a variety of ways
+* docs can be found via queries on any attr
+* documents can be grouped into collecitons
+* collections can be grouped into databases
+* Each database is then used by a particular applicaiton to get its work done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 13 - 2/17/15](http://cu-data-engineering-s15.github.io/lecture_13/)
+
+## CouchDB
+* Document Database
+  * Implemented in Erlang. Lot of use in telecommunications
+  * Massive concurrency, fault tolerance, distributed systems
+  * All of these features are on display in the design of CouchDB
+* CouchDB's design embraces the web
+  * High availability trades consistency for EVENTUAL consistency
+
+#### Document Model
+* Document databases: self-contained data
+* CouchDB stores documents
+* Each document contains everything that might be needed by an application.
+  * Avoid foreign keys etc, each document meant to stand on its own.
+  * Usually no references
+* No schema enforced, each document can have a different set of attributes
+
+#### CAP Theorem - PICK 2
+* Consistency -> All clients see the same data even in the presence of concurrent updates.
+* Availability -> All clients able to read or write the data store when they want
+* Partition Tolerance -> DB can be split across multiple servers
+
+#### Choices
+1. Consistency and Availability -> what relational dbs provide, low partition tolerance.
+2. Availiability and Partition Tolerance -> Provides the ability to scale horizontally and always be abailible for requests. 
+  * Can only guarantee eventual consistency
+  * 3 clients issue same query and get different results -> can design around this
+  * i.e. don't really need total consistency all the time (facebook likes)
+3. Consistency and Partition Tolerance -> provide consistency across multiple dbs, but not always available for client requests 
+
+**Couch DB choose the second option**
+
+#### Specifics
+* CouchDB uses B-tree storage engine.
+  * allows searches, insertions, and deletions in log time.
+* Employs MapReduce over B-Tree to compute _views_ of the data allowing for parallel and incremental computation.
+* No Locking
+  * same idea that git uses -> multiple users can edit a repo.
+  * Each read of a doc returns a version of the document that was the latest when read started
+  * document can be written while it is being read, the next read will then return the new document
+* Validation -> validation functions can be written in javascript
+  * Each time an update for a document is submitted the proposed change is passed to the validation function
+  * the validation function then chooses to accept or deny the update
+* Merge Conflicts
+  * Can encounter merge conflicts.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Lecture 14 - 2/17/15
+
+## MongoDB Student Presentation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Lecture 16 - 3/5/15](http://cu-data-engineering-s15.github.io/lecture_16/)
+
+## MongoDB Specifics
+
