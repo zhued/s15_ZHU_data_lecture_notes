@@ -777,32 +777,138 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # [Lecture 16 - 3/5/15](http://cu-data-engineering-s15.github.io/lecture_16/)
 
 ## MongoDB Specifics
+
+
+
+# [Lecture 17 - 3/10/15](http://cu-data-engineering-s15.github.io/lecture_17/)
+
+Indexes enabling queries
+
+MongoDB supports full text searching
+
+Can weight some search factors more than others
+
+OR, phrase matches, negations.... can get fancy and complicated
+
+GeoJSON can specify points, lineStrings or Polygons.
+
+geojson.io can be used to create a bounding box, integrated into queries
+
+Map Reduce - mongo offeres the ability to create new collections from old celltions using a map function and a reduce function.  It can also take a query, if so, it first finds the results of the query and then applies MapReduce to the result set.
+
+Basic map function that can be used to count up the number of times a screen name appears in a collection
+```
+function () {
+  emit(this.user.screen_name, {count: 1});
+}
+```
+
+A reduce function takes a key and a set of produced documents that were previously emited
+It must return a document that can be sent back into the reduce function in a subsequent phase
+For our example, that means it must generate documents of the form {count: X} where x is a number
+```
+function (key, docs) {
+  var total = 0;
+  for (var i = 0; i < docs.length; i++) {
+    total += docs[i].count;
+  }
+  return {count : total};
+}
+```
+
+End Goal: At the end of the operation, you will have a set of documents in a new collection. 
+Each document will have one key (in this case a screen_name) and a value that is equal to the number of times it appeared in the collection.
+
+
+# Lecture 18 - 3/17/15
+
+## Solr
+
+Simple way to get search functionality for your DB.  Works well with ruby.  Fast, reliable, and has many scalable features.
+
+On top of Lucene (which uses Java, portable) as a RESTful web server API.
+
+When integrating into the model, you can add searchable fields for the classes.  Controller can also get pagination.  The view is where the return values of the query are listed and can be interacted with using a search box.
+
+Ruby convention over configuration.
+
+Pitfalls: Solr reindexes from the beginning, started by default in production environment, solr configs and git
+
+## Redis
+
+Key-value store DB.
+
+Memory-oriented.  Fast.
+
+Keys: string, concise, max 512MB
+
+Values: strings, can contain any info, max 512MB
+
+Can contain multiple types.  The data is loosely typed.
+
+Features: sorted sets, bitmaps, hyperloglogs, persistence (snapshotting or append-only file)
+
+## Kafka
+
+Helpful for processing data coming over the network in real-time.
+
+Distributed, fault-tolerant, high-throughput, publish-subscribe, messaging system.
+
+Runs on Apache ZooKeeper, written in Scala.  Keeps all messages for up to N days.
+
+Similar to RabbitMQ, Flume, database, Redis pub/sub, supercomputer.
+
+
+# Lecture 19
+
+###Something here...
+
+# Lecture 20
+
+## Neo4J
+
+Graph Database: nodes and edges
+
+Relationships can have properties, can be single or bi-directional
+
+More likely to run on single server than cluster.
+
+Works well with Germlin and Cypher
+
+Aggregated oriented databases - Neo4J is not one which is why it's hard to shard
+
+## Apache HBase
+
+Runs on top of Hadoop (MapReduce and HDFS).
+
+Opensource column-oriented Hadoop Database.  Influenced by Google file system -> Google big table.
+
+Schemas contain column families which contain columns.  Columns within column families are contiguous.
+
+Great for scalability
+
+# Lecture 21
+
+#### Riak
+
+#### Cassandra
+
+Fast, scalable, growing in popularity
+
+
+# Lecture 22
+
+## JS
+
+I know nothing about JS
+
+Scope, Modules, explict stuff in JS
+
+## Ruby on Rails
+
+Just a huge live demo.
+
 
