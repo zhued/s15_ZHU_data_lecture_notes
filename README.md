@@ -912,3 +912,17 @@ Scope, Modules, explict stuff in JS
 Just a huge live demo.
 
 
+# Lecture 23
+
+## Hadoop
+
+HDFS Architecture bunch of nodes
+
+## Spark
+
+Alongside Hadoop
+
+# Rest are just student presentations...
+
+
+
